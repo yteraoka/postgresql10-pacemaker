@@ -67,11 +67,11 @@ pcs -f cib.xml property set stonith-enabled="false"
 
 # Master 用 VIP (replication traffic 用に別セグメントを用意する場合はもう一つ定義してグルーピングする)
 pcs -f cib.xml resource create master-vip ocf:heartbeat:IPaddr2 \
-  ip=192.168.33.10 cidr_netmask=24 nic=eth0 iflabel=master op monitor interval=5s
+  ip=192.168.33.10 cidr_netmask=24 nic=eth1 iflabel=master op monitor interval=5s
 
 # replica へ接続するための VIP
 pcs -f cib.xml resource create replica-vip ocf:heartbeat:IPaddr2 \
-  ip=192.168.33.14 cidr_netmask=24 nic=eth0 iflabel=replica op monitor interval=5s
+  ip=192.168.33.14 cidr_netmask=24 nic=eth1 iflabel=replica op monitor interval=5s
 
 # ping でネットワークの疎通をチェック
 # --clone を指定しているので clone として全 node で起動する

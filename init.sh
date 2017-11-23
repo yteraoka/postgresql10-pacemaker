@@ -77,7 +77,7 @@ pcs -f cib.xml resource create replica-vip ocf:heartbeat:IPaddr2 \
 # --clone を指定しているので clone として全 node で起動する
 # また、create の次に指定した ping という名前に -clone が追加される
 pcs -f cib.xml resource create ping ocf:pacemaker:ping \
-  dampen=5s multiplier=100 host_list=8.8.8.8--clone
+  dampen=5s multiplier=100 host_list=8.8.8.8 --clone
 
 # PostgreSQL resource 作成
 # master ... と指定しているので create の次に指定した pgsql という名前に -master が追加される

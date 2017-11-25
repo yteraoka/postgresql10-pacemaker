@@ -45,8 +45,8 @@ echo "host replication repl 192.168.33.0/24 trust" \
 
 sudo systemctl reload postgresql-10
 
-sudo -iu postgres ssh db2 mkdir /var/lib/pgsql/10/archive
-sudo -iu postgres ssh db3 mkdir /var/lib/pgsql/10/archive
+sudo -iu postgres ssh db2 mkdir /var/lib/pgsql/10/archive /var/lib/pgsql/10/tmpdir
+sudo -iu postgres ssh db3 mkdir /var/lib/pgsql/10/archive /var/lib/pgsql/10/tmpdir
 
 sudo -iu postgres ssh db2 /usr/pgsql-10/bin/pg_basebackup \
   -h db1 -U repl -D /var/lib/pgsql/10/data --progress

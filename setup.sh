@@ -75,3 +75,5 @@ install -o postgres -g postgres -m 0700 -d /var/lib/pgsql/.ssh
 install -o postgres -g postgres -m 0600 /vagrant/id_rsa /var/lib/pgsql/.ssh/id_rsa
 install -o postgres -g postgres -m 0600 /dev/null /var/lib/pgsql/.ssh/config
 echo "StrictHostKeyChecking no" > /var/lib/pgsql/.ssh/config
+
+sudo systemctl restart sshd

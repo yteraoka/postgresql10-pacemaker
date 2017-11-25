@@ -125,3 +125,22 @@ pcs -f cib.xml constraint location replica-vip rule score=-INFINITY pgsql-status
 
 # cib.xml を反映させる
 sudo pcs cluster cib-push cib.xml
+
+i=0
+while : ; do
+    i=$(($i + 1))
+    started=$(sudo pcs status | grep -c "Started db1")
+    echo -n "."
+    if [ "$started" = "2" ] ; then
+        echo ""
+        echo "sudo pcs unstandby db2 db3"
+        sudo pcs unstandby db2 db3
+	break
+    fi
+    if [ $i -gt 120 ] ; then
+        echo "couldn't get started"
+        sudo pcs status
+	exit 1
+    fi
+    sleep 2
+done

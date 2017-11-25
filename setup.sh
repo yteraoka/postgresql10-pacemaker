@@ -54,6 +54,7 @@ chmod 755 /var/lib/pgsql/copyWAL.sh
 
 install -o postgres -g postgres -m 0700 -d /var/lib/pgsql/10/archive
 
+sed -i '/db/d' /etc/hosts
 cat >> /etc/hosts <<EOF
 192.168.33.10 primary
 192.168.33.11 db1

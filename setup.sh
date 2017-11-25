@@ -33,20 +33,20 @@ cat <<EOF | sudo bash -c "cat > /var/lib/pgsql/copyWAL.sh"
 
 set -eu
 
-src_path=$1
-src_filename=$2
+src_path=\$1
+src_filename=\$2
 shift 2
 
-my_fqdn=$(hostname -f)
-my_hostname=$(hostname -s)
+my_fqdn=\$(hostname -f)
+my_hostname=\$(hostname -s)
 
-for dst in "$@"
+for dst in "\$@"
 do
-    dst_host=${dst%%:*}
-    dst_dir=${dst##*:}
+    dst_host=\${dst%%:*}
+    dst_dir=\${dst##*:}
 
-    if [ "$dst_host" != "$my_fqdn" -a "$dst_host" != "$my_hostname" ] ; then
-        rsync -e ssh "$src_path" $dst_host:"$dst_dir/$src_filename"
+    if [ "\$dst_host" != "\$my_fqdn" -a "\$dst_host" != "\$my_hostname" ] ; then
+        rsync -e ssh "\$src_path" \$dst_host:"\$dst_dir/\$src_filename"
     fi
 done
 EOF

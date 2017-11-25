@@ -54,7 +54,7 @@ sudo -iu postgres ssh db3 /usr/pgsql-10/bin/pg_basebackup \
   -h db1 -U repl -D /var/lib/pgsql/10/data --progress
 
 sudo pcs cluster auth db1 db2 db3 -u hacluster -p passwd
-sudo pcs cluster setup --start --name pg10_cluster db1 db2 db3
+sudo pcs cluster setup --start --name pg10 db1 db2 db3
 sudo pcs node standby db2 db3
 
 sudo pcs cluster cib > cib.xml

@@ -133,8 +133,8 @@ while : ; do
     echo -n "."
     if [ "$started" = "2" ] ; then
         echo ""
-        echo "sudo pcs unstandby db2 db3"
-        sudo pcs unstandby db2 db3
+        echo "sudo pcs node unstandby db2 db3"
+        sudo pcs node unstandby db2 db3
 	break
     fi
     if [ $i -gt 120 ] ; then

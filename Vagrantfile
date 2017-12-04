@@ -10,6 +10,8 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
 
+  #config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+
   config.vm.define :db1 do |m|
     m.vm.hostname = "db1"
     m.vm.provider "virtualbox" do |v|

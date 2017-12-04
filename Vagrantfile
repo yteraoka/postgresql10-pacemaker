@@ -16,8 +16,7 @@ Vagrant.configure("2") do |config|
       v.memory = 512
     end
     m.vm.network :private_network, ip: "192.168.33.11"
-    m.vm.provision "shell", path: "setup.sh",
-                   args: ["primary"]
+    m.vm.provision "shell", path: "setup.sh"
   end
 
   config.vm.define :db2 do |m|
@@ -26,8 +25,7 @@ Vagrant.configure("2") do |config|
       v.memory = 512
     end
     m.vm.network :private_network, ip: "192.168.33.12"
-    m.vm.provision "shell", path: "setup.sh",
-                   args: ["standby"]
+    m.vm.provision "shell", path: "setup.sh"
   end
 
   config.vm.define :db3 do |m|
@@ -36,8 +34,7 @@ Vagrant.configure("2") do |config|
       v.memory = 512
     end
     m.vm.network :private_network, ip: "192.168.33.13"
-    m.vm.provision "shell", path: "setup.sh",
-                   args: ["standby"]
+    m.vm.provision "shell", path: "setup.sh"
   end
 
   config.vm.define :client do |m|

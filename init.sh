@@ -136,10 +136,10 @@ while : ; do
         sudo pcs node unstandby db2 db3
 	break
     fi
-    if [ $i -gt 120 ] ; then
+    if [ $i -gt 60 ] ; then
         echo "couldn't get started"
         sudo pcs status
 	exit 1
     fi
-    sleep 2
+    sleep 5
 done

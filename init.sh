@@ -45,13 +45,12 @@ echo "host replication repl 192.168.33.0/24 trust" \
 
 sudo systemctl reload postgresql-10
 
-sudo -iu postgres ssh db2 mkdir /var/lib/pgsql/10/archive /var/lib/pgsql/10/tmpdir
-sudo -iu postgres ssh db3 mkdir /var/lib/pgsql/10/archive /var/lib/pgsql/10/tmpdir
-
-sudo -iu postgres ssh db2 /usr/pgsql-10/bin/pg_basebackup \
-  -h db1 -U repl -D /var/lib/pgsql/10/data --progress
-sudo -iu postgres ssh db3 /usr/pgsql-10/bin/pg_basebackup \
-  -h db1 -U repl -D /var/lib/pgsql/10/data --progress
+for d in db2 db3; do
+  sudo -iu postgres ssh $d install -m 0700 -d /var/lib/pgsql/10/archive
+  sudo -iu postgres ssh $d install -m 0700 -d /var/lib/pgsql/10/tmpdir
+  sudo -iu postgres ssh $d /usr/pgsql-10/bin/pg_basebackup \
+    -h db1 -U repl -D /var/lib/pgsql/10/data --progress
+done
 
 sudo pcs cluster auth db1 db2 db3 -u hacluster -p passwd
 sudo pcs cluster setup --start --name pg10 db1 db2 db3

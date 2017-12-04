@@ -131,6 +131,8 @@ while : ; do
     started=$(sudo pcs status | grep -c "Started db1")
     echo -n "."
     if [ "$started" = "2" ] ; then
+        # purge past failures
+        sudo pcs resource cleanup pgsql --node db1
         echo ""
         echo "sudo pcs node unstandby db2 db3"
         sudo pcs node unstandby db2 db3

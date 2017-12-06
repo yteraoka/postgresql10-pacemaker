@@ -39,12 +39,6 @@ sudo systemctl start postgresql-10
 
 sudo -iu postgres /usr/pgsql-10/bin/psql \
   -c "CREATE USER repl REPLICATION PASSWORD 'replication';"
-sudo -iu postgres /usr/pgsql-10/bin/psql \
-  -c "SELECT * FROM pg_create_physical_replication_slot('slot_db1');"
-sudo -iu postgres /usr/pgsql-10/bin/psql \
-  -c "SELECT * FROM pg_create_physical_replication_slot('slot_db2');"
-sudo -iu postgres /usr/pgsql-10/bin/psql \
-  -c "SELECT * FROM pg_create_physical_replication_slot('slot_db3');"
 
 echo "host replication repl 192.168.33.0/24 trust" \
  | sudo bash -c "cat >> /var/lib/pgsql/10/data/pg_hba.conf"
@@ -107,7 +101,6 @@ pcs -f cib.xml resource create pgsql ocf:heartbeat:pgsql10 \
   xlog_check_count="3" \
   crm_attr_timeout="5" \
   check_wal_receiver="true" \
-  replication_slot_name="slot" \
   op monitor interval="11s" op monitor interval="10s" role="Master" \
   master master-max=1 master-node-max=1 clone-max=3 clone-node-max=1 notify=true target-role='Started'
 
